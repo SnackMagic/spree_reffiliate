@@ -1,5 +1,5 @@
 module Spree
-  class Affiliate::ConfirmationsController < Spree::UsersController
+  class Affiliate::ConfirmationsController < Spree::Api::V1::Ams::UsersController
 
     prepend_before_action :load_object, :load_affiliate, only: [:new, :create]
 

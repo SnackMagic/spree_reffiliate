@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Spree::CheckoutController, type: :controller do
+describe Spree::Api::V1::CheckoutsController, type: :controller do
 
   let(:order) { create(:order_with_totals, email: nil, user: nil) }
   let(:user)  { build(:user, spree_api_key: 'fake') }

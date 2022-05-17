@@ -1,4 +1,4 @@
-Spree::UsersController.class_eval do
+Spree::Api::V1::Ams::UsersController.class_eval do
 
   prepend_before_action :affiliate_user, only: :update
   before_action :load_referred_records, only: :referral_details
