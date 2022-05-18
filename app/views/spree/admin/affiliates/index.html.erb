@@ -14,7 +14,9 @@
         <th><%= Spree.t(:name) %></th>
         <th><%= Spree.t(:path) %></th>
         <th><%= Spree.t(:count) %></th>
-        <th><%= Spree.t(:partial_status) %></th>
+        <% if false %>
+          <th><%= Spree.t(:partial_status) %></th>
+        <% end %>
         <th data-hook="admin_affiliates_index_header_actions" class="actions"></th>
       </tr>
     </thead>
