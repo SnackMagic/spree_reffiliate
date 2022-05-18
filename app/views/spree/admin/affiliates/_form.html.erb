@@ -17,13 +17,15 @@
         <% end %>
       </div>
 
-      <div data-hook="affiliate_partial">
-        <%= f.field_container :partial, class: ['form-group'] do %>
-          <%= f.label :partial, Spree.t(:partial) + " (leave blank if no partial) " %>
-          <p><%= Spree.t(:affiliate_partial_path) %> <%= f.text_field :partial, class: 'form-control' %></p>
-          <%= f.error_message_on :partial %>
-        <% end %>
-      </div>
+      <% if false %>
+        <div data-hook="affiliate_partial">
+          <%= f.field_container :partial, class: ['form-group'] do %>
+            <%= f.label :partial, Spree.t(:partial) + " (leave blank if no partial) " %>
+            <p><%= Spree.t(:affiliate_partial_path) %> <%= f.text_field :partial, class: 'form-control' %></p>
+            <%= f.error_message_on :partial %>
+          <% end %>
+        </div>
+      <% end %>
 
       <div data-hook="affiliate_path">
         <%= f.field_container :path, class: ['form-group'] do %>
