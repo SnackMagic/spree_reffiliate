@@ -12,7 +12,7 @@ module Spree
     accepts_nested_attributes_for :affiliate_commission_rules, reject_if: :invalid_rule
 
     validates :name, :path, :email, presence: true
-    validates :email, :path, uniqueness: { allow_blank: true }
+    validates :path, uniqueness: { allow_blank: true }
     validates :email, length: { maximum: 254, allow_blank: true }, email: { allow_blank: true }
     validates_associated :affiliate_commission_rules
 
