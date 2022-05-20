@@ -35,17 +35,19 @@
         <% end %>
       </div>
 
-      <div data-hook="affiliate_layout">
-        <%= f.field_container :layout, class: ['form-group'] do %>
-          <%= f.label :layout, Spree.t(:layout) %>
-          <%= select_tag 'fake_layout', options_for_select(@layout_options, selected: @affiliate.layout), class: "select2 #{'other' unless @layout_options.flatten.include?(@affiliate.layout)}" %>
-          <p>
-            <br/>
-            <%= f.text_field :layout, value: @affiliate.layout.nil? ? @layout_options.first : @affiliate.layout, class: 'form-control' %>
-          </p>
-          <%= f.error_message_on :layout %>
-        <% end %>
-      </div>
+      <% if false %>
+        <div data-hook="affiliate_layout">
+          <%= f.field_container :layout, class: ['form-group'] do %>
+            <%= f.label :layout, Spree.t(:layout) %>
+            <%= select_tag 'fake_layout', options_for_select(@layout_options, selected: @affiliate.layout), class: "select2 #{'other' unless @layout_options.flatten.include?(@affiliate.layout)}" %>
+            <p>
+              <br/>
+              <%= f.text_field :layout, value: @affiliate.layout.nil? ? @layout_options.first : @affiliate.layout, class: 'form-control' %>
+            </p>
+            <%= f.error_message_on :layout %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
