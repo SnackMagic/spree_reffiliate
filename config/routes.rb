@@ -16,7 +16,7 @@ Spree::Core::Engine.routes.draw do
     resources :commission_rules
   end
 
-  namespace :affiliate do
-    resources :confirmations, only: [:new, :create]
-  end
+  # namespace :affiliate do
+  #   resources :confirmations, only: [:new, :create]
+  # end
 end

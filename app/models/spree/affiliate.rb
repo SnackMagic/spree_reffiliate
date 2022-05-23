@@ -17,6 +17,7 @@ module Spree
     validates_associated :affiliate_commission_rules
 
     before_create :create_user, :process_activation
+    # after_commit :send_activation_instruction, on: :create
 
     self.whitelisted_ransackable_attributes =  %w[name email]
 
@@ -75,6 +76,10 @@ module Spree
           generate_activation_token
         end
       end
+
+      # def send_activation_instruction
+      #   Spree::AffiliateMailer.activation_instruction(email).deliver_later
+      # end
 
       def invalid_rule(attributes)
         !attributes[:id] && !attributes[:rate].present? && !attributes[:active].eql?('1')
