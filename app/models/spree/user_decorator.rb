@@ -40,13 +40,13 @@ Spree::User.class_eval do
   end
 
   protected
-    def password_required?
-      if new_record? && spree_roles.include?(Spree::Role.affiliate)
-        false
-      else
-        super
-      end
-    end
+    # def password_required?
+    #   if new_record? && spree_roles.include?(Spree::Role.affiliate)
+    #     false
+    #   else
+    #     super
+    #   end
+    # end
 
   private
     def process_referral
