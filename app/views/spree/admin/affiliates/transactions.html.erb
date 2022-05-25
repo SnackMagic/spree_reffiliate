@@ -42,16 +42,21 @@
     </thead>
     <tbody>
       <% @commission_transactions.each do |transaction|%>
-        <% order = Spree::Order.find_by(number: transaction.commissionable.number) %>
         <tr id="<%= spree_dom_id transaction %>" data-hook="admin_transactions_index_rows" class="<%= cycle('odd', 'even')%>">
-          <% if transaction.commissionable_type.eql? 'Spree::User' %>
-            <td class='transaction_name'><%=link_to transaction.commissionable.email, admin_user_path(Spree::User.find_by(email: transaction.commissionable.email).try(:id)) %></td>
-          <% elsif transaction.commissionable_type.eql? 'Spree::Order' %>
-            <td class='transaction_name'><%=link_to transaction.commissionable.number, edit_admin_order_path(order.try(:number)) %></td>
-          <% end %>
+          <td class='transaction_name'>
+            <% if transaction.commissionable_type.eql? 'Spree::User' %>
+              <%=link_to transaction.commissionable.email, admin_user_path(Spree::User.find_by(email: transaction.commissionable.email).try(:id)) %>
+            <% elsif transaction.commissionable_type.eql? 'Spree::Order' %>
+              <%=link_to transaction.commissionable.number, edit_admin_order_path(transaction.commissionable.try(:number)) %>
+            <% end %>
+          </td>
           <td class='transaction_name'><%= transaction.commissionable_type %></td>
           <td class='align-center'><%= pretty_time(transaction.created_at) %></td>
-          <td class='align-center'><%= order.try(:display_total) %></td>
+          <td class='align-center'>
+            <% if transaction.commissionable_type.eql? 'Spree::Order' %>
+              <%= transaction.commissionable.try(:display_total) %>
+            <% end %>
+          </td>
           <td class='align-center'><%= transaction.display_total %></td>
           <td class='align-center'> <%= transaction.locked? %> </td>
         </tr>
