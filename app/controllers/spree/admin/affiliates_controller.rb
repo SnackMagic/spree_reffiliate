@@ -11,7 +11,7 @@ module Spree
 
       def transactions
         params[:q] = {} unless params[:q]
-        @commission_transactions = @affiliate.transactions
+        @commission_transactions = @affiliate.transactions.includes([:commissionable])
         @search = @commission_transactions.ransack(params[:q])
         @commission_transactions = @search.result.page(params[:page]).per(params[:per_page] || Spree::Config[:admin_transactions_per_page])
       end
