@@ -8,10 +8,10 @@ Spree::User.class_eval do
   has_one :affiliate_record, class_name: 'Spree::ReferredRecord'
   has_many :transactions, as: :commissionable, class_name: 'Spree::CommissionTransaction', dependent: :restrict_with_error
 
-  after_create :create_referral
-  after_create :process_referral
-  after_create :process_affiliate
-  after_update :activate_associated_partner, if: :associated_partner_activable?
+  # after_create :create_referral
+  # after_create :process_referral
+  # after_create :process_affiliate
+  # after_update :activate_associated_partner, if: :associated_partner_activable?
 
   validates :referral_credits, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
@@ -20,7 +20,7 @@ Spree::User.class_eval do
   end
 
   def referred_count
-    referral.referred_records.count
+  #   referral.referred_records.count
   end
 
   def referred?
@@ -40,34 +40,34 @@ Spree::User.class_eval do
   end
 
   protected
-    def password_required?
-      if new_record? && spree_roles.include?(Spree::Role.affiliate)
-        false
-      else
-        super
-      end
-    end
+    # def password_required?
+    #   if new_record? && spree_roles.include?(Spree::Role.affiliate)
+    #     false
+    #   else
+    #     super
+    #   end
+    # end
 
   private
-    def process_referral
-      if referral_code.present?
-        referred = Spree::Referral.where('lower(code) = ?', referral_code.downcase).first
-        if referred
-          store_credit = create_store_credits(referred.user) if referrer_eligible?(referred.user)
-          referred.referred_records.create(user: self, store_credit_id: store_credit.try(:id))
-        end
-      end
-    end
+    # def process_referral
+    #   if referral_code.present?
+    #     referred = Spree::Referral.where('lower(code) = ?', referral_code.downcase).first
+    #     if referred
+    #       store_credit = create_store_credits(referred.user) if referrer_eligible?(referred.user)
+    #       referred.referred_records.create(user: self, store_credit_id: store_credit.try(:id))
+    #     end
+    #   end
+    # end
 
-    def process_affiliate
-      if affiliate_code.present?
-        affiliated = Spree::Affiliate.where('lower(path) = ?', affiliate_code.downcase).first
-        if affiliated
-          register_commission_transaction(affiliated)
-          affiliated.referred_records.create(user: self)
-        end
-      end
-    end
+    # def process_affiliate
+    #   if affiliate_code.present?
+    #     affiliated = Spree::Affiliate.where('lower(path) = ?', affiliate_code.downcase).first
+    #     if affiliated
+    #       register_commission_transaction(affiliated)
+    #       affiliated.referred_records.create(user: self)
+    #     end
+    #   end
+    # end
 
     def activate_associated_partner
       associated_partner.update_attributes(activation_token: nil, activated_at: Time.current, active: true)

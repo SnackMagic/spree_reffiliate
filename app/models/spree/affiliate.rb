@@ -12,12 +12,12 @@ module Spree
     accepts_nested_attributes_for :affiliate_commission_rules, reject_if: :invalid_rule
 
     validates :name, :path, :email, presence: true
-    validates :email, :path, uniqueness: { allow_blank: true }
+    validates :path, uniqueness: { allow_blank: true }
     validates :email, length: { maximum: 254, allow_blank: true }, email: { allow_blank: true }
     validates_associated :affiliate_commission_rules
 
     before_create :create_user, :process_activation
-    after_commit :send_activation_instruction, on: :create
+    # after_commit :send_activation_instruction, on: :create
 
     self.whitelisted_ransackable_attributes =  %w[name email]
 
@@ -59,8 +59,8 @@ module Spree
       def create_user
         @user = Spree::User.find_or_initialize_by(email: email)
         self.active_on_create = true if user.persisted?
-        affiliate_role = Spree::Role.affiliate
-        user.spree_roles << affiliate_role unless user.spree_roles.include?(affiliate_role)
+        # affiliate_role = Spree::Role.affiliate
+        # user.roles << affiliate_role unless user.spree_roles.include?(affiliate_role)
         user.save!
       end
 
@@ -76,9 +76,9 @@ module Spree
         end
       end
 
-      def send_activation_instruction
-        Spree::AffiliateMailer.activation_instruction(email).deliver_later
-      end
+      # def send_activation_instruction
+      #   Spree::AffiliateMailer.activation_instruction(email).deliver_later
+      # end
 
       def invalid_rule(attributes)
         !attributes[:id] && !attributes[:rate].present? && !attributes[:active].eql?('1')

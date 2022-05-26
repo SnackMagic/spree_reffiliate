@@ -5,7 +5,7 @@ module SpreeReffiliate
       class_option :auto_run_migrations, type: :boolean, default: false
 
       def add_javascripts
-        append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/spree_reffiliate\n"
+        # append_file 'vendor/assets/javascripts/spree/frontend/all.js', "//= require spree/frontend/spree_reffiliate\n"
       end
 
       def add_migrations
