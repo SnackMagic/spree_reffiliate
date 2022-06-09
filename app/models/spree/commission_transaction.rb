@@ -9,6 +9,7 @@ module Spree
     before_validation :assign_commission, :evaluate_amount, on: :create
 
     self.whitelisted_ransackable_attributes =  %w[amount created_at commission_id]
+    self.whitelisted_ransackable_associations = ['commissionable']
 
     def display_total
       currency = Spree::Config[:currency]
