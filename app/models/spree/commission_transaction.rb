@@ -16,6 +16,11 @@ module Spree
       Spree::Money.new(amount, { currency: currency })
     end
 
+    def evaluate_amount
+      self.amount = Spree::TransactionService.new(self).calculate_commission_amount
+      return true
+    end
+
     private
       def assign_commission
         start_date = (created_at || Date.current).beginning_of_month.beginning_of_day
@@ -25,11 +30,6 @@ module Spree
 
       def cannot_change_commisson
         errors.add(:base, Spree.t(:cannot_change_commisson, scope: :commission_transaction)) if persisted? && commission_id.changed?
-      end
-
-      def evaluate_amount
-        self.amount = Spree::TransactionService.new(self).calculate_commission_amount
-        return true
       end
 
       def check_not_locked
