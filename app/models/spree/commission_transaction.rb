@@ -29,7 +29,7 @@ module Spree
       end
 
       def cannot_change_commisson
-        errors.add(:base, Spree.t(:cannot_change_commisson, scope: :commission_transaction)) if persisted? && commission_id.changed?
+        errors.add(:base, Spree.t(:cannot_change_commisson, scope: :commission_transaction)) if persisted? && commission_id_changed?
       end
 
       def check_not_locked
