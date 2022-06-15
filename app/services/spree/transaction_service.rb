@@ -20,9 +20,9 @@ module Spree
       def item_total
         commissionable = transaction.commissionable
         if commissionable.partner_delivery
-          commissionable.adjustments.partner_delivery.first.try(:amount)
+          commissionable.adjustments.partner_delivery.sum(:amount)
         else
-          transaction.commissionable.try(:item_total)
+          commissionable.item_total
         end
       end
 
