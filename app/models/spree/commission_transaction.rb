@@ -9,10 +9,16 @@ module Spree
     before_validation :assign_commission, :evaluate_amount, on: :create
 
     self.whitelisted_ransackable_attributes =  %w[amount created_at commission_id]
+    self.whitelisted_ransackable_associations = ['commissionable']
 
     def display_total
       currency = Spree::Config[:currency]
       Spree::Money.new(amount, { currency: currency })
+    end
+
+    def evaluate_amount
+      self.amount = Spree::TransactionService.new(self).calculate_commission_amount
+      return true
     end
 
     private
@@ -23,12 +29,7 @@ module Spree
       end
 
       def cannot_change_commisson
-        errors.add(:base, Spree.t(:cannot_change_commisson, scope: :commission_transaction)) if persisted? && commission_id.changed?
-      end
-
-      def evaluate_amount
-        self.amount = Spree::TransactionService.new(self).calculate_commission_amount
-        return true
+        errors.add(:base, Spree.t(:cannot_change_commisson, scope: :commission_transaction)) if persisted? && commission_id_changed?
       end
 
       def check_not_locked
