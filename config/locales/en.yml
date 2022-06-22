@@ -59,3 +59,6 @@ en:
       referral_setting:
         credits_to_be_awarded: Store Credits for referral
         referral_credit_status: Referral benefit enabled
+    organizer_order_number: Organizer Order Number
+    organizer_email: Organizer Email
+    order_completion_date: Order Completion Date

@@ -9,22 +9,13 @@ module Spree
         if affiliate_commission_rule.fixed_commission?
           @amount = rate
         else
-          @amount = (item_total * (rate))/100
+          @amount = (transaction.commisionable.commissionable_total * (rate))/100
         end
         @amount.to_f
       end
     end
 
     private
-
-      def item_total
-        commissionable = transaction.commissionable
-        if commissionable.partner_delivery
-          commissionable.adjustments.partner_delivery.sum(:amount)
-        else
-          commissionable.item_total
-        end
-      end
 
       def initialize(transaction)
         @transaction = transaction

@@ -59,12 +59,12 @@
               <%= ORDER_SNACKS_TYPE[:recipient] %>
             <% end %>
           </td>
-          <td><%= transaction.commissionable.organizer_order.organizer.try(:email) %></td>
+          <td><%= transaction.commissionable.organizer_order.organizer.email %></td>
           <td><%= transaction.commissionable.organizer_order.number %></td>
           <td class='align-center'><%= pretty_time(transaction.commissionable.completed_at) %></td>
           <td class='align-center'>
             <% if transaction.commissionable_type.eql? 'Spree::Order' %>
-              <%= transaction.commissionable.try(:display_item_total) %>
+              <%= transaction.commissionable.display_commissionable_total %>
             <% end %>
           </td>
           <td class='align-center'><%= transaction.display_total %></td>
