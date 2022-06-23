@@ -35,6 +35,26 @@
         <% end %>
       </div>
 
+      <div data-hook="affiliate_commissionables">
+        <div class="row">
+          <div class="col-md-6">
+            <%= f.field_container :gift_orders_commissionable, class: ['form-group'] do %>
+              <%= f.check_box :gift_orders_commissionable, class: 'form-control' %>
+              <%= f.label :gift_orders_commissionable, Spree.t(:gift_orders_commissionable) %>
+              <%= f.error_message_on :gift_orders_commissionable %>
+            <% end %>
+          </div>
+
+          <div class="col-md-6">
+            <%= f.field_container :self_orders_commissionable, class: ['form-group'] do %>
+              <%= f.check_box :self_orders_commissionable, class: 'form-control' %>
+              <%= f.label :self_orders_commissionable, Spree.t(:self_orders_commissionable) %>
+              <%= f.error_message_on :self_orders_commissionable %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
       <% if false %>
         <div data-hook="affiliate_layout">
           <%= f.field_container :layout, class: ['form-group'] do %>
