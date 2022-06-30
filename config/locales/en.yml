@@ -61,3 +61,6 @@ en:
         referral_credit_status: Referral benefit enabled
     gift_orders_commissionable: Allow Gift Orders
     self_orders_commissionable: Allow Self Orders
+    organizer_order_number: Organizer Order Number
+    organizer_email: Organizer Email
+    order_completion_date: Order Completion Date
